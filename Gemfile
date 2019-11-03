@@ -55,4 +55,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'shopify_app'
 
 gem 'dotenv-rails', group: [:test, :development]
-gem 'rubocop'
+
+gem 'rubocop-daemon'
+gem 'sucker_punch'
