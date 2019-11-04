@@ -58,3 +58,4 @@ gem 'dotenv-rails', group: [:test, :development]
 
 gem 'rubocop-daemon'
 gem 'sucker_punch'
+gem 'bootstrap', '~> 4.3.1'
