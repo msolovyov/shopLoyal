@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  email: MyString
-  multiplier: 1
+  email: test5@shop.ca
+  multiplier: 5
 
 two:
-  email: MyString
+  email: MyString2
   multiplier: 1

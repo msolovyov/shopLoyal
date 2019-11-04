@@ -13,8 +13,11 @@ class OrdersCreateJob < ActiveJob::Base
       # Get customer from param
       tracker = CustomerPointsTracker.new(webhook['customer'], ShopifyAPI::Shop.current.email)
       # figure out points
-      tracker.add_points(webhook['total_price'])
+      new_points = tracker.calc_points(webhook['total_price'])
+      new_total_points = tracker.add_points(webhook['total_price'])
+
       # send email with points update
+      tracker.points_email(new_points, new_total_points)
     end
   end
 end
