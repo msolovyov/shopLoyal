@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Multiplier</h1>
-
+<% if @users %>
 <table>
   <thead>
     <tr>
@@ -21,6 +21,8 @@
     <% end %>
   </tbody>
 </table>
+<% end %>
+
 
 <br>
 <% if @users.empty? %>
