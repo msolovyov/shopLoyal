@@ -8,24 +8,11 @@ class OrdersCreateJob < ActiveJob::Base
       # create or update customer table with new points
       p '--------------------------------------------------'
       p webhook
-      p shop
-      if webhook[:customer]
-        customer = Customer.find_by_email(webhook[:customer][:email])
-      else
-        Customer.find_by_email(webhook[:email])
-      end
-      customer ||= Customer.create(
-        email: webhook[:customer][:email],
-        points: 0,
-        firstName: webhook[:customer][:first_name],
-        lastName: webhook[:customer][:last]
-      )
-      spent = webhook[:total_price]
-      shop_email = ShopifyAPI::Shop.current.email
-      multiplier = User.find_by_email(shop_email)[:multiplier]
-      new_points = spent.to_d * multiplier.to_d
-      new_total_points = customer[:points].to_d + new_points
-      customer.update(points: new_total_points)
+
+      # Get customer from param
+      tracker = CustomerPointsTracker.new(webhook['customer'])
+      # figure out points
+      tracker.add_points(webhook['total_price'], ShopifyAPI::Shop.current.email)
       # send email with points update
     end
   end
