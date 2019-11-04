@@ -21,7 +21,9 @@ class CustomerPointsTrackerTest < ActiveSupport::TestCase
     u1 = User.find_by_email('test5@shop.ca')
     assert u1
     assert_equal(5, u1.multiplier)
-    tracker.add_points(2)
+    new_p = tracker.calc_points(2)
+    assert_equal(10, new_p)
+    tracker.add_points(new_p)
     cust = Customer.find_by_email('blah@blah.com')
     assert_equal(10, cust.points)
   end
