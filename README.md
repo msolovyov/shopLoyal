@@ -7,4 +7,8 @@ setup:
 
 put your api keys in .env or in your environment variables.
 
+Format:
+SHOPIFY_API_KEY=XXXXXXXXX
+SHOPIFY_API_SECRET=YYYYYYYYY
+
 config/application.rb has the app host url. Put the ngrok or running servers public url here. 
