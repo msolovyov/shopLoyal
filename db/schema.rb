@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,30 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_191_103_201_736) do
-  create_table 'customers', force: :cascade do |t|
-    t.string 'first_name'
-    t.string 'last_name'
-    t.string 'email'
-    t.decimal 'points'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+ActiveRecord::Schema.define(version: 2019_11_04_071404) do
+
+  create_table "customers", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.decimal "points"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "shopify_id"
+    t.string "shopify_store_email"
   end
 
-  create_table 'shops', force: :cascade do |t|
-    t.string 'shopify_domain', null: false
-    t.string 'shopify_token', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['shopify_domain'], name: 'index_shops_on_shopify_domain', unique: true
+  create_table "shops", force: :cascade do |t|
+    t.string "shopify_domain", null: false
+    t.string "shopify_token", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.string 'email'
-    t.integer 'multiplier'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.boolean 'email_verified'
-    t.index ['email'], name: 'index_users_on_email', unique: true
+  create_table "users", force: :cascade do |t|
+    t.string "email"
+    t.integer "multiplier"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.boolean "email_verified"
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
+
 end
