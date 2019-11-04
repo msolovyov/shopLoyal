@@ -7,7 +7,8 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    # shouldn't show all users, just themselves so they can't edit other stores multipliers
+    @users = Array.wrap(set_user)
   end
 
   # GET /users/1
