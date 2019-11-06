@@ -9,8 +9,8 @@ class CustomersController < ApplicationController
   # GET /customers.json
   def index
     @customers = Customer.where(
-      'shopify_store_email = ?',
-      session[:shopify_user]['email']
+      'shopify_store_id = ?',
+      ShopifyAPI::Shop.current.id
     ).all
   end
 

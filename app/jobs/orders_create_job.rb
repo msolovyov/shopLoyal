@@ -6,7 +6,8 @@ class OrdersCreateJob < ActiveJob::Base
     shop.with_shopify_session do
       # https://help.shopify.com/en/api/reference/events/webhook#index-2019-10
       # create or update customer table with new points
-      tracker = CustomerPointsTracker.new(webhook['customer'], ShopifyAPI::Shop.current.email)
+
+      tracker = CustomerPointsTracker.new(webhook['customer'], ShopifyAPI::Shop.current.id)
       tracker.process_points(webhook['total_price'])
     end
   end

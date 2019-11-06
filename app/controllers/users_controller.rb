@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     @user = User.new do |u|
       u.email = user_session_email
       u.multiplier = user_params[:multiplier]
-      u.email_verified = email_verified
+      u.shopify_id = user_session_shop_id
     end
 
     respond_to do |format|
@@ -69,17 +69,17 @@ class UsersController < ApplicationController
 
   private
 
-  def email_verified
-    session[:shopify_user]['email_verified']
-  end
-
   def user_session_email
     session[:shopify_user]['email']
   end
 
+  def user_session_shop_id
+    ShopifyAPI::Shop.current.id
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_user
-    @user = User.find_by_email(session[:shopify_user]['email'])
+    @user = User.find_by_shopify_id(user_session_shop_id)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

@@ -3,7 +3,9 @@
 one:
   email: test5@shop.ca
   multiplier: 5
+  shopify_id: 1
 
 two:
-  email: MyString2
+  email: MyString@2.com
   multiplier: 1
+  shopify_id: 2

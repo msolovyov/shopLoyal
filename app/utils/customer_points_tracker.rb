@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class CustomerPointsTracker
-  def initialize(customer_data, shop_email)
+  def initialize(customer_data, shop_id)
     @customer = Customer.where(
-      'email = ? AND shopify_store_email = ?',
-      customer_data['email'], shop_email
+      'email = ? AND shopify_store_id = ?',
+      customer_data['email'], shop_id
     ).take
     @customer ||= Customer.create(
       shopify_id: customer_data['id'],
@@ -12,7 +12,7 @@ class CustomerPointsTracker
       points: 0,
       first_name: customer_data['first_name'],
       last_name: customer_data['last_name'],
-      shopify_store_email: shop_email
+      shopify_store_id: shop_id
     )
   end
 
@@ -20,14 +20,14 @@ class CustomerPointsTracker
   # emails the customer
   def process_points(money_spent)
     new_points = calc_points(money_spent)
-    new_total_points = tracker.add_points(new_points)
+    new_total_points = add_points(new_points)
     # send email with points update
     email_points(new_points, new_total_points)
   end
 
   # Give back points for money spent, no modification
   def calc_points(money_spent)
-    multiplier = User.find_by_email(@customer.shopify_store_email)[:multiplier]
+    multiplier = User.find_by_shopify_id(@customer.shopify_store_id)[:multiplier]
     money_spent.to_d * multiplier.to_d
   end
 
@@ -38,9 +38,10 @@ class CustomerPointsTracker
   end
 
   def email_points(new_points, new_total_points)
-    LoyaltyMailer.points_update(@customer.shopify_store_email,
-                                @customer.email,
-                                new_points,
-                                new_total_points).deliver_now
+    LoyaltyMailer.points_update(
+      @customer.email,
+      new_points,
+      new_total_points
+    ).deliver_now
   end
 end
